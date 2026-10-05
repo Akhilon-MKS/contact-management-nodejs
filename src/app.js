@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config();
 
@@ -11,6 +12,10 @@ app.use(express.json());
 const contactRoutes = require("./routes/contactRoutes");
 
 app.use("/contacts", contactRoutes);
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 
 mongoose
     .connect(process.env.MONGO_URI)
